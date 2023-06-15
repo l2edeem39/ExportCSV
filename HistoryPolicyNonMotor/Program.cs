@@ -18,14 +18,17 @@ namespace HistoryPolicyNonMotor
             String conn = ConfigurationManager.AppSettings["ConnectionString"].ToString();
             String pathFile = ConfigurationManager.AppSettings["FileCsv"].ToString();
             String spName = ConfigurationManager.AppSettings["spName"].ToString();
+            String paramYear = ConfigurationManager.AppSettings["year"].ToString();
+            String paramMaxrang = ConfigurationManager.AppSettings["maxrang"].ToString();
             Console.WriteLine("Please Wait...");
-            var dict = new Dictionary<string, string>();
-            //dictClm_ngno.Add("@clm_id", Clmintranet.clm_id);
+            var dict = new Dictionary<string, int>();
+            dict.Add("@year", Int32.Parse(paramYear));
+            dict.Add("@maxrang", Int32.Parse(paramMaxrang));
             var data = GetDataTable(spName, dict, conn);
             ToCSV(data, pathFile);
             Console.WriteLine("Completed...");
         }
-        public static DataTable GetDataTable(string storedName, Dictionary<string, string> param, String conn)
+        public static DataTable GetDataTable(string storedName, Dictionary<string, int> param, String conn)
         {
             try
             {
@@ -40,7 +43,7 @@ namespace HistoryPolicyNonMotor
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         foreach (var item in param)
                         {
-                            command.Parameters.AddWithValue(item.Key.Trim(), item.Value.Trim());
+                            command.Parameters.AddWithValue(item.Key.Trim(), item.Value);
                         }
 
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
