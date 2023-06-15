@@ -87,11 +87,11 @@ namespace HistoryPolicyNonMotor
                         if (value.Contains(","))
                         {
                             value = String.Format("\"{0}\"", value);
-                            sw.Write(value);
+                            sw.Write(value.Replace("\n", "").Replace("\r\n", "").Replace("\r", ""));
                         }
                         else
                         {
-                            sw.Write(dr[i].ToString());
+                            sw.Write(dr[i].ToString().Replace("\n", "").Replace("\r\n", "").Replace("\r", ""));
                         }
                     }
                     if (i < dtDataTable.Columns.Count - 1)
