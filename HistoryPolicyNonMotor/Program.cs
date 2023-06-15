@@ -23,6 +23,7 @@ namespace HistoryPolicyNonMotor
             //dictClm_ngno.Add("@clm_id", Clmintranet.clm_id);
             var data = GetDataTable(spName, dict, conn);
             ToCSV(data, pathFile);
+            Console.WriteLine("Completed...");
         }
         public static DataTable GetDataTable(string storedName, Dictionary<string, string> param, String conn)
         {
